@@ -7,9 +7,9 @@ current_card = {}
 word_learn = {}
 #reading the data file and making it into dictionary
 try:
-    data = pandas.read_csv("D:\\coding\\python_in_hole\\python code\\flash-card\\data\\to_learn.csv")
+    data = pandas.read_csv("data\\to_learn.csv")
 except FileNotFoundError:
-    original_data = pandas.read_csv("D:\\coding\\python_in_hole\\python code\\flash-card\\data\\french_words.csv")
+    original_data = pandas.read_csv("data\\french_words.csv")
     word_learn = original_data.to_dict(orient="records")
 else:
     word_learn = data.to_dict(orient="records")
@@ -33,7 +33,7 @@ def flip_card():
 def is_known():
     word_learn.remove(current_card)
     data = pandas.DataFrame(word_learn)
-    data.to_csv("D:\\coding\\python_in_hole\\python code\\flash-card\\data\\to_learn.csv", index=False)
+    data.to_csv("data\\to_learn.csv", index=False)
     next_card()
 
 window= Tk()
@@ -43,8 +43,8 @@ window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 flip_timer = window.after(3000, func=flip_card)
 
 canvas = Canvas(width=800, height=526)
-card_back_img = PhotoImage(file="D:\\coding\\python_in_hole\\python code\\flash-card\\images\\card_back.png")
-card_front_img = PhotoImage(file="D:\\coding\\python_in_hole\\python code\\flash-card\\images\\card_front.png")
+card_back_img = PhotoImage(file="images\\card_back.png")
+card_front_img = PhotoImage(file="images\\card_front.png")
 card_background = canvas.create_image(400, 263, image=card_front_img)
 canvas.grid(row=0, column=0, columnspan=2)
 canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
@@ -52,11 +52,11 @@ canva_text = canvas.create_text(400, 150, text="", font=("Ariel", 40, "italic"))
 canva_word = canvas.create_text(400, 263, text="", font=("Ariel", 60, "bold"))
 
 #buttons
-cross_image = PhotoImage(file="D:\\coding\\python_in_hole\\python code\\flash-card\\images\\wrong.png")
+cross_image = PhotoImage(file="images\\wrong.png")
 cross_button = Button(image=cross_image, highlightthickness=0, command=next_card)
 cross_button.grid(row=1, column=0)
 
-right_image = PhotoImage(file="D:\\coding\\python_in_hole\\python code\\flash-card\\images\\right.png")
+right_image = PhotoImage(file="images\\right.png")
 right_button = Button(image=right_image, highlightthickness=0, command=is_known)
 right_button.grid(row=1, column=1)
 
